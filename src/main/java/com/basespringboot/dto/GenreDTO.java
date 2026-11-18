@@ -1,3 +1,3 @@
 package com.basespringboot.dto;
 
-public record GenreDTO(Long id, String nom, String description) {}
+public record GenreDTO(Long id, String name, String description) {}

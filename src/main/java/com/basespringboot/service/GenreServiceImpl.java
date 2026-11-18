@@ -2,6 +2,9 @@ package com.basespringboot.service;
 import com.basespringboot.dto.GenreDTO;
 import com.basespringboot.entity.Genre;
 import com.basespringboot.repository.GenreRepository;
+
+import lombok.RequiredArgsConstructor;
+
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -10,13 +13,15 @@ import org.springframework.web.server.ResponseStatusException; // Packages pour 
 
 
 @Service
+@RequiredArgsConstructor 
 public class GenreServiceImpl implements GenreService {
 
     private final GenreRepository genreRepository;
 
-    public GenreServiceImpl(GenreRepository genreRepository) {
+ /*    public GenreServiceImpl(GenreRepository genreRepository) {
         this.genreRepository = genreRepository;
     }
+        */
 
     @Override
     public List<GenreDTO> findAll() {
@@ -45,7 +50,7 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public GenreDTO update(Long id, GenreDTO dto) {
         Genre genre = getGenreOrThrow(id);        // 1. Look for the genre using the ID or return 404 if not found
-        genre.setNom(dto.nom());                  // 2. Alter the objet's values
+        genre.setName(dto.name());                  // 2. Alter the objet's values
         genre.setDescription(dto.description());
         Genre saved = genreRepository.save(genre); // 3. Save the changes
         return toDto(saved);                      // 4. Using the DTO : sending the updated
@@ -61,13 +66,13 @@ public class GenreServiceImpl implements GenreService {
 
     // Convert the entity in a usable object (DTO)
     private GenreDTO toDto(Genre genre) {
-        return new GenreDTO(genre.getId(), genre.getNom(), genre.getDescription());
+        return new GenreDTO(genre.getId(), genre.getName(), genre.getDescription());
     }
 
     // Convert the DTO in an entity to insert
     private Genre toEntity(GenreDTO dto) {
         Genre genre = new Genre();
-        genre.setNom(dto.nom());
+        genre.setName(dto.name());
         genre.setDescription(dto.description());
         return genre;
     }
