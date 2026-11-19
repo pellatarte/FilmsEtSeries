@@ -6,6 +6,13 @@ info:
 http:
   method: POST
   url: http://localhost:8086/genres
+  body:
+    type: json
+    data: |-
+      {
+        "nom": "Horreur",
+        "description": "Films qui font peur"
+      }
   auth: inherit
 
 settings:

@@ -6,6 +6,13 @@ info:
 http:
   method: PUT
   url: http://localhost:8086/genres/1
+  body:
+    type: json
+    data: |-
+      {
+        "nom": "Horreur",
+        "description": "Films d'épouvante et de suspense"
+      }
   auth: inherit
 
 settings:

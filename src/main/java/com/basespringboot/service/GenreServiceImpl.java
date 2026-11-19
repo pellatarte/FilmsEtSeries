@@ -25,28 +25,33 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public List<GenreDTO> findAll() {
-        return genreRepository.findAll()      // ← minuscule ici
+        return genreRepository.findAll()      // find all the data in the repository
                 .stream()
-                .map(this::toDto)
+                .map(this::toDto)  // Convert the data to a DTO
                 .toList();
     }
 
-    // Méthodes HTTP : appliquer le CRUD => GET, POST, PUT, DELETE
+    /* 
+    Implementing the CRUD functions 
+    => they are mapped to HTTP GET/POST/PUT/DELETE 
+    HTTP requests in the controller.
+    */ 
 
+    // GET method
     @Override
     public GenreDTO findById(Long id) {
         return toDto(getGenreOrThrow(id));
     }
 
-    // Méthode POST : ajout d'objets en base grâce à l'API
+    // Implementing create : corresponds to the POST method
     @Override
     public GenreDTO create(GenreDTO dto) {
-        Genre genre = toEntity(dto);                   // 1. DTO → entité
-        Genre saved = genreRepository.save(genre);     // 2. on enregistre en base
-        return toDto(saved);                           // 3. entité → DTO (avec l'id généré)
+        Genre genre = toEntity(dto);                   // converts the DTO in a ```Genre``` object
+        Genre saved = genreRepository.save(genre);     // saves the data in the database
+        return toDto(saved);                           // the saved data is converted to a DTO and sent to our code
     }
 
-    // Méthode PUT : modifier un objet existant
+    // Implementing the GET method using setters and the ```save()``` native function
     @Override
     public GenreDTO update(Long id, GenreDTO dto) {
         Genre genre = getGenreOrThrow(id);        // 1. Look for the genre using the ID or return 404 if not found
@@ -56,8 +61,10 @@ public class GenreServiceImpl implements GenreService {
         return toDto(saved);                      // 4. Using the DTO : sending the updated
     }
 
-    // Méthode DELETE : delete existing objects (in this case, genres)
-    // We're using pre-made function ```delete()```
+    /*
+    Implementing the ```delete()``` function
+    => corresponds to the ```DELETE``` HTTP request
+    */
     @Override
     public void delete(Long id) {
         Genre genre = getGenreOrThrow(id);   // 1. on vérifie qu'il existe (sinon 404)

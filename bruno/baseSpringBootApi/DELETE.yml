@@ -5,7 +5,7 @@ info:
 
 http:
   method: DELETE
-  url: http://localhost/genres/1
+  url: http://localhost:8086/genres/2
   auth: inherit
 
 settings:

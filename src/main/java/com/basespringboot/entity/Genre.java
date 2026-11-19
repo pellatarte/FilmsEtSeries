@@ -7,15 +7,16 @@ import jakarta.persistence.GenerationType;
 @Entity
 public class Genre {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id // Indicates that this is the entity's ID (pimary key?)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Indiated that the value is generated during the creation
     private Long id;
 
     private String name;
     private String description;
 
-    public Genre() {}   // obligatoire pour JPA
+    public Genre() {}   // Mandatory to use JPA
 
+    // Getters and setters (useful to access pprivate attributes)
     public Long getId() {
         return id;
     }
