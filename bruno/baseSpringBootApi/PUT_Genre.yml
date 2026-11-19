@@ -1,17 +1,17 @@
 info:
-  name: POST-Genres
+  name: PUT_Genre
   type: http
-  seq: 2
+  seq: 4
 
 http:
-  method: POST
-  url: http://localhost:8086/genres
+  method: PUT
+  url: http://localhost:8086/genres/1
   body:
     type: json
     data: |-
       {
         "nom": "Horreur",
-        "description": "Films qui font peur"
+        "description": "Films d'épouvante et de suspense"
       }
   auth: inherit
 

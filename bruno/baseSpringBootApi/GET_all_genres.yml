@@ -1,11 +1,11 @@
 info:
-  name: DELETE
+  name: GET_all_genres
   type: http
-  seq: 5
+  seq: 1
 
 http:
-  method: DELETE
-  url: http://localhost:8086/genres/2
+  method: GET
+  url: http://localhost:8086/genres
   auth: inherit
 
 settings:

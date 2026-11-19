@@ -1,11 +1,18 @@
 info:
-  name: Untitled
+  name: POST_Genre
   type: http
-  seq: 1
+  seq: 2
 
 http:
-  method: GET
+  method: POST
   url: http://localhost:8086/genres
+  body:
+    type: json
+    data: |-
+      {
+        "nom": "Horreur",
+        "description": "Films qui font peur"
+      }
   auth: inherit
 
 settings:
