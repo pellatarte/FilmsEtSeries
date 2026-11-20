@@ -1,5 +1,5 @@
 server:
-  port: 8084
+  port: 8086
 
 spring:
   application:
@@ -13,7 +13,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update # Save the preexisting data : update
     show-sql: true
     properties:
       hibernate:
