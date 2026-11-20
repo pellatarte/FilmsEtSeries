@@ -1,7 +1,9 @@
 package com.basespringboot.service;
 
 import com.basespringboot.dto.SerieDTO;
+import com.basespringboot.entity.Genre;
 import com.basespringboot.entity.Serie;
+import com.basespringboot.repository.GenreRepository;
 import com.basespringboot.repository.SerieRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,9 +18,11 @@ import java.util.stream.Collectors;
 public class SerieServiceImpl implements SerieService {
 
     private final SerieRepository serieRepository;
+    private final GenreRepository genreRepository;
 
-    public SerieServiceImpl(SerieRepository serieRepository) {
+    public SerieServiceImpl(SerieRepository serieRepository, GenreRepository genreRepository) {
         this.serieRepository = serieRepository;
+        this.genreRepository = genreRepository;
     }
 
     @Override
@@ -68,6 +72,14 @@ public class SerieServiceImpl implements SerieService {
         serie.setTitle(dto.getTitle());
         serie.setSeasons(dto.getSeasons());
         serie.setReleaseYear(dto.getReleaseYear());
+        if (dto.getGenreId() == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Un genre est obligatoire");
+        }
+        Genre genre = genreRepository.findById(dto.getGenreId())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Genre introuvable : " + dto.getGenreId()));
+        serie.setGenre(genre);
     }
 
     private SerieDTO toDTO(Serie serie) {
@@ -76,6 +88,10 @@ public class SerieServiceImpl implements SerieService {
         dto.setTitle(serie.getTitle());
         dto.setSeasons(serie.getSeasons());
         dto.setReleaseYear(serie.getReleaseYear());
+        if (serie.getGenre() != null) {
+            dto.setGenreId(serie.getGenre().getId());
+            dto.setGenreName(serie.getGenre().getName());
+        }
         return dto;
     }
 }

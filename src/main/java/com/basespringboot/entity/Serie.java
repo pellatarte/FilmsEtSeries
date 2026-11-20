@@ -4,9 +4,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Serie {
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "genre_id", nullable = false)
+    private Genre genre;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,4 +38,6 @@ public class Serie {
     public int getReleaseYear() { return releaseYear; }
     public void setReleaseYear(int releaseYear) { this.releaseYear = releaseYear; }
 
+    public Genre getGenre() { return genre; }
+    public void setGenre(Genre genre) { this.genre = genre; }
 }
