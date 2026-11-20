@@ -1,7 +1,6 @@
 server:
   port: 8086
-  error:
-    include-message: always
+
 spring:
   application:
     name: baseSpringBoot
@@ -14,7 +13,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: update # Save the preexisting data : update
     show-sql: true
     properties:
       hibernate:
