@@ -1,0 +1,24 @@
+info:
+  name: /series/1
+  type: http
+  seq: 5
+
+http:
+  method: PUT
+  url: "{{baseUrl}}/series/1"
+  body:
+    type: json
+    data: |-
+      {
+        "titre": "Breaking Bad (modifié)",
+        "annee": 2009,
+        "genreId": 2
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
