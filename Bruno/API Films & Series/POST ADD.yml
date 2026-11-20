@@ -1,0 +1,25 @@
+info:
+  name: POST ADD
+  type: http
+  seq: 4
+
+http:
+  method: POST
+  url: http://localhost:8086/films
+  body:
+    type: json
+    data: |-
+      {
+        "titre": "Inception",
+        "anneeSortie": 2010,
+        "dureeMinutes": 148,
+        "genreId": 1
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
