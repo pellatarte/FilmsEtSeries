@@ -3,25 +3,23 @@ import com.basespringboot.dto.GenreDTO;
 import com.basespringboot.entity.Genre;
 import com.basespringboot.repository.GenreRepository;
 
-import lombok.RequiredArgsConstructor;
-
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException; // Packages pour gérer les exceptions
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
-@RequiredArgsConstructor 
+@Transactional
 public class GenreServiceImpl implements GenreService {
 
     private final GenreRepository genreRepository;
 
- /*    public GenreServiceImpl(GenreRepository genreRepository) {
+    public GenreServiceImpl(GenreRepository genreRepository) {
         this.genreRepository = genreRepository;
     }
-        */
 
     @Override
     public List<GenreDTO> findAll() {
@@ -68,6 +66,11 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public void delete(Long id) {
         Genre genre = getGenreOrThrow(id);   // 1. on vérifie qu'il existe (sinon 404)
+        if (!genre.getSeries().isEmpty()) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "Impossible de supprimer ce genre : des séries y sont liées");
+        }
         genreRepository.delete(genre);       // 2. on le supprime
     }
 
